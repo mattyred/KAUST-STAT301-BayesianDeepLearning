@@ -17,10 +17,6 @@ class CrackLoader():
         # Read data
         transform = transforms.Compose([
             transforms.Resize((120, 120)),
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomVerticalFlip(),
-            transforms.RandomRotation(15),
-            transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         ])

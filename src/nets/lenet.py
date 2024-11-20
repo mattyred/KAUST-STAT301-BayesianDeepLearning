@@ -1,66 +1,42 @@
 import torch
 from torch import nn
 
-from ..layers.conv import Conv2d
-from ..layers.linear import Linear
-
-import torch.nn.functional as F
-
 class LeNet5(nn.Module):
-    def __init__(self, in_channels, output_dim, padding, scaled_variance=True, norm_layer=None, dropout_rate=0.2):
-        super(LeNet5, self).__init__(),
+    def __init__(self, in_channels, output_dim, padding=0, dropout_rate=0.2):
+        super(LeNet5, self).__init__()
 
-        self.task = "classification"
-                 
-        self.feature = nn.Sequential(
-            #1
-            nn.Conv2d(in_channels=in_channels, out_channels=6*in_channels, kernel_size=5, padding=padding),   # 28*28->32*32-->28*28
-            nn.Tanh(),
-            nn.AvgPool2d(kernel_size=2, stride=2),  # 14*14
-            
-            #2
-            nn.Conv2d(in_channels=6*in_channels, out_channels=16*in_channels, kernel_size=5),  # 10*10
-            nn.Tanh(),
-            nn.AvgPool2d(kernel_size=2, stride=2),  # 5*5
-            
-        )
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            
-            # Fully Connected Layer 1 + Dropout
-            nn.Linear(in_features=16*5*5, out_features=120),
-            nn.Tanh(),
-            nn.Dropout(p=dropout_rate),
-            
-            # Fully Connected Layer 2 + Dropout
-            nn.Linear(in_features=120, out_features=84),
-            nn.Tanh(),
-            nn.Dropout(p=dropout_rate),
-            
-            # Output Layer
-            nn.Linear(in_features=84, out_features=output_dim),
-        )
-        
-    def forward(self, X, log_softmax=False):
+        # First convolutional layer
+        self.conv1 = nn.Conv2d(in_channels, 6, kernel_size=5, stride=1, padding=padding)  # Output: (6, 116, 116)
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)                                # Output: (6, 58, 58)
 
-        X = self.classifier(self.feature(X))
-        
-        if (self.task == "classification") and log_softmax:
-            X = F.log_softmax(X, dim=1)
+        # Second convolutional layer
+        self.conv2 = nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=padding)          # Output: (16, 54, 54)
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)                               # Output: (16, 27, 27)
 
-        return X
+        # Fully connected layers
+        flattened_size = 16 * 27 * 27  # Adjusted for the 120x120 input
+        self.fc1 = nn.Linear(flattened_size, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, output_dim)
 
+        # Dropout
+        self.dropout = nn.Dropout(p=dropout_rate)
 
-    def predict(self, X):
+        # Activation function
+        self.relu = nn.ReLU()
 
-        self.eval()
-        # if self.task == "classification":
-        return self.forward(X, log_softmax=True)
-        # else:
-        #     return self.forward(X, log_softmax=False)
-    
+    def forward(self, x):
+        x = self.relu(self.conv1(x))
+        x = self.pool1(x)
+        x = self.relu(self.conv2(x))
+        x = self.pool2(x)
+        x = x.view(x.size(0), -1)  # Flatten the tensor
+        x = self.dropout(self.relu(self.fc1(x)))
+        x = self.dropout(self.relu(self.fc2(x)))
+        x = self.fc3(x)
+        return x
 
     def reset_parameters(self):
         for m in self.modules():
-            if isinstance(m, Linear) or isinstance(m, Conv2d):
+            if isinstance(m, nn.Linear) or isinstance(m, nn.Conv2d):
                 m.reset_parameters()

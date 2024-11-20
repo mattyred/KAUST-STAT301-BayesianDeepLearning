@@ -43,7 +43,7 @@ def main(args):
 
     # Define optimizer
     optimizer = optim.SGD(model.parameters(), lr=1e-3, momentum=0.90, weight_decay=5e-4)
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
+    #scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
 
     
     # Train lenet5 on crack dataset
@@ -53,8 +53,9 @@ def main(args):
     valid_loss_progress =[]
 
     for epoch in range(0, args.epochs+1):
+        print(f'Epoch : {epoch}')
         train_loss, correct, total = train_step(model, dataset.train_loader, optimizer, swag=swag, device=device)
-        scheduler.step()
+        #scheduler.step()
         train_accuracy = 100.*correct/total
         train_accuracy_progress.append(train_accuracy)
         train_loss_progress.append(train_loss)
@@ -65,7 +66,11 @@ def main(args):
             valid_accuracy_progress.append(val_accuracy)
             valid_loss_progress.append(val_loss)
 
-    torch.save(model, f'./experiments/{args.model}' + '.pt')
+    np.savez(f'./experiments/results/{args.model}.npz', train_accuracy_progress=np.array(train_accuracy_progress), 
+                                                        train_loss_progress=np.array(train_loss_progress),
+                                                        valid_accuracy_progress=np.array(valid_accuracy_progress),
+                                                        valid_loss_progress=np.array(valid_loss_progress))
+    torch.save(model, f'./experiments/models/{args.model}.pt')
 
     
 
@@ -74,6 +79,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='bdl-project')
     parser.add_argument('--model', type=str, default='lenet5-optim')
     parser.add_argument('--approach', type=str, default='swag')
-    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--epochs', type=int, default=30)
     args = parser.parse_args()
     main(args)

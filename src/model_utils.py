@@ -54,6 +54,30 @@ def validation_step(net, val_loader, device='cpu'):
     
     return val_loss/(batch_idx+1), correct, total
 
+def swag_predictions(model, val_loader, num_models=10, device='cpu'):
+    all_preds = []
+    true_labels = []
+
+    for i in range(num_models):
+        model.sample()
+
+        model_preds = [] 
+        with torch.no_grad():
+            for data, target in val_loader:
+                data = data.to(device)
+                output = model(data)
+
+                softmax_output = torch.softmax(output, dim=1)
+                model_preds.append(softmax_output.cpu().numpy())
+                if i == 0:
+                    true_labels.extend(target.cpu().numpy().flatten())
+        all_preds.append(np.concatenate(model_preds, axis=0))
+
+    predictions = np.array(all_preds) # (num_models, n_samples, n_classes)
+    true_labels = np.array(true_labels)
+
+    return predictions, true_labels
+
 def enable_dropout(model):
     """ Function to enable the dropout layers during test-time """
     for m in model.modules():

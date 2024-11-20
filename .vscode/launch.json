@@ -16,7 +16,7 @@
                 "--approach",
                 "swag",
                 "--epochs",
-                "5"
+                "1"
             ]
         }
     ]

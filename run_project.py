@@ -2,14 +2,14 @@ import argparse
 import os
 import torch
 import numpy as np
-from utils import set_seed
+from utils import set_seed, ensure_dir
 import torch.optim as optim
 from src.datasets.crack_loader import CrackLoader
 import torchvision.transforms as T
 import matplotlib.pyplot as plt
 from src.nets.lenet import LeNet5
 from src.nets.swag import SWAG
-from src.model_utils import train_step, validation_step
+from src.model_utils import train_step, validation_step, swag_predictions
 
 DATA_DIR = './data/crack'
 
@@ -21,6 +21,11 @@ elif torch.backends.mps.is_available():
     device = 'mps'
 else:
     device = 'cpu'
+
+MODELS_DIR = './experiments/models'
+RESULTS_DIR = './experiments/results'
+ensure_dir(MODELS_DIR)
+ensure_dir(RESULTS_DIR)
 
 # Set random seed
 set_seed(0)
@@ -66,11 +71,16 @@ def main(args):
             valid_accuracy_progress.append(val_accuracy)
             valid_loss_progress.append(val_loss)
 
-    np.savez(f'./experiments/results/{args.model}.npz', train_accuracy_progress=np.array(train_accuracy_progress), 
-                                                        train_loss_progress=np.array(train_loss_progress),
-                                                        valid_accuracy_progress=np.array(valid_accuracy_progress),
-                                                        valid_loss_progress=np.array(valid_loss_progress))
-    torch.save(model, f'./experiments/models/{args.model}.pt')
+    # Predict
+    predictions, true_labels = swag_predictions(model, dataset.val_loader, num_models=50, device=device)
+
+    np.savez(os.path.join(RESULTS_DIR, f'{args.model}.npz'), train_accuracy_progress=np.array(train_accuracy_progress), 
+                                                             train_loss_progress=np.array(train_loss_progress),
+                                                             valid_accuracy_progress=np.array(valid_accuracy_progress),
+                                                             valid_loss_progress=np.array(valid_loss_progress),
+                                                             predictions=predictions, 
+                                                             true_labels=true_labels)
+    torch.save(model, (os.path.join(MODELS_DIR, f'{args.model}.pt')))
 
     
 

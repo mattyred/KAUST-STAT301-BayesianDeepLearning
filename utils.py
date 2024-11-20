@@ -7,6 +7,7 @@ import torch
 
 import torch.nn as nn
 import torch.nn.init as init
+from pathlib import Path
 
 TOTAL_BAR_LENGTH = 65.
 
@@ -16,6 +17,16 @@ def set_seed(seed=0):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     np.random.seed(seed)
+
+def ensure_dir(dirname):
+    """Check whether the given directory was created; if not, create a new one.
+
+    Args:
+        dirname: string, path to the directory.
+    """
+    dirname = Path(dirname)
+    if not dirname.is_dir():
+        dirname.mkdir(parents=True, exist_ok=False)
 
 term_width = 80
 last_time = time.time()

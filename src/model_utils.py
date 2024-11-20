@@ -2,8 +2,9 @@ import torch
 from tqdm import tqdm
 import numpy as np
 import torch.nn.functional as F
-
-def train_step(net, data_loader, optimizer, device='cpu'):
+from utils import progress_bar
+        
+def train_step(net, data_loader, optimizer, swag=False, device='cpu'):
 
     net.train()
     train_loss = 0
@@ -21,6 +22,13 @@ def train_step(net, data_loader, optimizer, device='cpu'):
         _, predicted = output.max(1)
         total += Ybatch.size(0)
         correct += predicted.eq(Ybatch).sum().item()
+
+        # Update moments
+        if swag:
+            net.update_moments()
+
+        progress_bar(batch_idx, len(data_loader), 'Train Loss: %.3f | Train Acc: %.3f%% (%d/%d)'
+                     % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
     
     return train_loss/(batch_idx+1), correct, total
 
@@ -40,6 +48,9 @@ def validation_step(net, val_loader, device='cpu'):
             _, predicted = output.max(1)
             correct += predicted.eq(Ybatch).sum().item()
             total += Ybatch.size(0)
+
+            progress_bar(batch_idx, len(val_loader), 'Valid Loss: %.3f | Valid Acc: %.3f%% (%d/%d)'
+                     % (val_loss/(batch_idx+1), 100.*correct/total, correct, total))
     
     return val_loss/(batch_idx+1), correct, total
 

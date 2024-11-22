@@ -54,6 +54,23 @@ def validation_step(net, val_loader, device='cpu'):
     
     return val_loss/(batch_idx+1), correct, total
 
+def predict_step(model, val_loader, device='cpu'):
+    true_labels = []
+    val_preds = []
+    with torch.no_grad():
+        for data, target in val_loader:
+            data = data.to(device)
+            output = model(data)
+
+            softmax_output = torch.softmax(output, dim=1)
+            val_preds.append(softmax_output.cpu().numpy())
+            true_labels.extend(target.cpu().numpy().flatten())
+
+    predictions = np.concatenate(val_preds, axis=0) # (n_samples, n_classes)
+    true_labels = np.array(true_labels)
+
+    return predictions, true_labels
+    
 def swag_predictions(model, val_loader, num_models=10, device='cpu'):
     all_preds = []
     true_labels = []
@@ -63,7 +80,7 @@ def swag_predictions(model, val_loader, num_models=10, device='cpu'):
 
         model_preds = [] 
         with torch.no_grad():
-            for data, target in val_loader:
+            for _, (data, target) in enumerate(tqdm(val_loader)):
                 data = data.to(device)
                 output = model(data)
 

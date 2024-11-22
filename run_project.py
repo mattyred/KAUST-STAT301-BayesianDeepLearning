@@ -9,7 +9,7 @@ import torchvision.transforms as T
 import matplotlib.pyplot as plt
 from src.nets.lenet import LeNet5
 from src.nets.swag import SWAG
-from src.model_utils import train_step, validation_step, swag_predictions
+from src.model_utils import train_step, validation_step, swag_predictions, predict_step
 
 DATA_DIR = './data/crack'
 
@@ -47,7 +47,7 @@ def main(args):
     print(model)
 
     # Define optimizer
-    optimizer = optim.SGD(model.parameters(), lr=1e-3, momentum=0.90, weight_decay=5e-4)
+    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.90, weight_decay=5e-4)
     #scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
 
     
@@ -72,8 +72,11 @@ def main(args):
             valid_loss_progress.append(val_loss)
 
     # Predict
-    predictions, true_labels = swag_predictions(model, dataset.val_loader, num_models=50, device=device)
-
+    if swag:
+        predictions, true_labels = swag_predictions(model, dataset.val_loader, num_models=50, device=device)
+    else:
+        predictions, true_labels = predict_step(model, dataset.val_loader, device=device)
+        
     np.savez(os.path.join(RESULTS_DIR, f'{args.model}.npz'), train_accuracy_progress=np.array(train_accuracy_progress), 
                                                              train_loss_progress=np.array(train_loss_progress),
                                                              valid_accuracy_progress=np.array(valid_accuracy_progress),

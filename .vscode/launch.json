@@ -12,11 +12,11 @@
             "console": "integratedTerminal",
             "args": [
                 "--model",
-                "lenet5-swag",
+                "lenet5-laplace",
                 "--approach",
                 "swag",
                 "--epochs",
-                "1"
+                "20"
             ]
         }
     ]

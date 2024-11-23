@@ -9,7 +9,7 @@ import torchvision.transforms as T
 import matplotlib.pyplot as plt
 from src.nets.lenet import LeNet5
 from src.nets.swag import SWAG
-from src.model_utils import train_step, validation_step, swag_predictions, predict_step
+from src.model_utils import train_step, validation_step, swag_predictions, predict_step, validation_map_step, train_map_step
 
 DATA_DIR = './data/crack'
 
@@ -36,9 +36,15 @@ def main(args):
     print(f'Train [80%]: {dataset.train_size}x3x120x120')
     print(f'Validation [20%]: {dataset.val_size}x3x120x120')
     swag = False
+    laplace = False
 
     if args.model == 'lenet5-optim':
         model = LeNet5(in_channels=3, output_dim=2, padding=0)
+
+    if args.model == 'lenet5-laplace':
+        model = LeNet5(in_channels=3, output_dim=1, padding=0)
+        laplace = True
+        print('Use Laplace method')
 
     if args.model == 'lenet5-swag':
         swag = True
@@ -59,14 +65,20 @@ def main(args):
 
     for epoch in range(0, args.epochs+1):
         print(f'Epoch : {epoch}')
-        train_loss, correct, total = train_step(model, dataset.train_loader, optimizer, swag=swag, device=device)
+        if laplace:
+            train_loss, correct, total = train_map_step(model, dataset.train_loader, optimizer, device=device)
+        else:
+            train_loss, correct, total = train_step(model, dataset.train_loader, optimizer, swag=swag, device=device)
         #scheduler.step()
         train_accuracy = 100.*correct/total
         train_accuracy_progress.append(train_accuracy)
         train_loss_progress.append(train_loss)
 
         if (epoch % 5) == 0:
-            val_loss, correct, total = validation_step(model, dataset.val_loader, device=device)
+            if laplace:
+                val_loss, correct, total = validation_map_step(model, dataset.val_loader, device=device)
+            else:
+                val_loss, correct, total = validation_step(model, dataset.val_loader, device=device)
             val_accuracy = 100.*correct/total
             valid_accuracy_progress.append(val_accuracy)
             valid_loss_progress.append(val_loss)

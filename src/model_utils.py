@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from utils import progress_bar
 from torch import nn
         
-def train_step(net, data_loader, optimizer, swag=False, device='cpu'):
+def train_step(net, data_loader, optimizer, swag=False, map=False, lambda_prior = 1e-2, device='cpu'):
 
     net.train()
     train_loss = 0
@@ -16,10 +16,18 @@ def train_step(net, data_loader, optimizer, swag=False, device='cpu'):
         optimizer.zero_grad()
         output = net(Xbatch)
         loss = F.cross_entropy(output, Ybatch)
+        
+        train_loss += loss.item()
+        if map:
+            prior_loss = 0.0
+            for param in net.parameters():
+                prior_loss += torch.sum(param**2)
+            prior_loss *= (lambda_prior / 2)
+            train_loss += prior_loss
+
         loss.backward()
         optimizer.step()
         
-        train_loss += loss.item()
         _, predicted = output.max(1)
         total += Ybatch.size(0)
         correct += predicted.eq(Ybatch).sum().item()

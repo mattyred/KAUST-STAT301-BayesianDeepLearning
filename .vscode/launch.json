@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             "args": [
                 "--model",
-                "lenet5-laplace",
+                "resnet18",
                 "--approach",
                 "swag",
                 "--epochs",

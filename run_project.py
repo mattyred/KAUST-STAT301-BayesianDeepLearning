@@ -7,6 +7,8 @@ import torch.optim as optim
 from src.datasets.crack_loader import CrackLoader
 import torchvision.transforms as T
 import matplotlib.pyplot as plt
+from torchvision import models
+from torch import nn
 from src.nets.lenet import LeNet5
 from src.nets.swag import SWAG
 from src.model_utils import train_step, validation_step, swag_predictions, predict_step, validation_map_step, train_map_step
@@ -38,26 +40,28 @@ def main(args):
     swag = False
     laplace = False
 
-    if args.model == 'lenet5-optim':
+    if args.model == 'lenet5':
         model = LeNet5(in_channels=3, output_dim=2, padding=0)
+    elif args.model == 'resnet18':
+        model = models.resnet18(pretrained=True)
+        model.fc = nn.Linear(model.fc.in_features, 2)
 
-    if args.model == 'lenet5-laplace':
-        model = LeNet5(in_channels=3, output_dim=1, padding=0)
-        laplace = True
-        print('Use Laplace method')
-
-    if args.model == 'lenet5-swag':
+    if args.approach == 'swag':
+        model = SWAG(model=model)
         swag = True
-        model = SWAG(model=LeNet5(in_channels=3, output_dim=2, padding=0))
+    elif args.approach == 'laplace':
+        laplace = True
+    elif args.approach == 'optim':
+        pass
+
     model.to(device)
     print(model)
 
     # Define optimizer
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.90, weight_decay=5e-4)
-    #scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
-
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
     
-    # Train lenet5 on crack dataset
+    # Train
     train_accuracy_progress = []
     train_loss_progress = []
     valid_accuracy_progress = []
@@ -65,20 +69,14 @@ def main(args):
 
     for epoch in range(0, args.epochs+1):
         print(f'Epoch : {epoch}')
-        if laplace:
-            train_loss, correct, total = train_map_step(model, dataset.train_loader, optimizer, device=device)
-        else:
-            train_loss, correct, total = train_step(model, dataset.train_loader, optimizer, swag=swag, device=device)
-        #scheduler.step()
+        train_loss, correct, total = train_step(model, dataset.train_loader, optimizer, swag=swag, map=laplace, device=device)
+        scheduler.step()
         train_accuracy = 100.*correct/total
         train_accuracy_progress.append(train_accuracy)
         train_loss_progress.append(train_loss)
 
         if (epoch % 5) == 0:
-            if laplace:
-                val_loss, correct, total = validation_map_step(model, dataset.val_loader, device=device)
-            else:
-                val_loss, correct, total = validation_step(model, dataset.val_loader, device=device)
+            val_loss, correct, total = validation_step(model, dataset.val_loader, device=device)
             val_accuracy = 100.*correct/total
             valid_accuracy_progress.append(val_accuracy)
             valid_loss_progress.append(val_loss)
@@ -89,13 +87,13 @@ def main(args):
     else:
         predictions, true_labels = predict_step(model, dataset.val_loader, device=device)
         
-    np.savez(os.path.join(RESULTS_DIR, f'{args.model}.npz'), train_accuracy_progress=np.array(train_accuracy_progress), 
+    np.savez(os.path.join(RESULTS_DIR, f'{args.model}_{args.approach}.npz'), train_accuracy_progress=np.array(train_accuracy_progress), 
                                                              train_loss_progress=np.array(train_loss_progress),
                                                              valid_accuracy_progress=np.array(valid_accuracy_progress),
                                                              valid_loss_progress=np.array(valid_loss_progress),
                                                              predictions=predictions, 
                                                              true_labels=true_labels)
-    torch.save(model, (os.path.join(MODELS_DIR, f'{args.model}.pt')))
+    torch.save(model, (os.path.join(MODELS_DIR, f'{args.model}_{args.approach}.pt')))
 
     
 

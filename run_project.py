@@ -92,7 +92,7 @@ def main(args):
             train_accuracy_progress.append(train_accuracy)
             train_loss_progress.append(train_loss)
 
-        if (epoch % 5) == 0:
+        if (epoch % 10) == 0:
             val_loss, correct, total = validation_step(model, dataset.val_loader, device=device)
             val_accuracy = 100.*correct/total
             if optim_only:
@@ -103,11 +103,11 @@ def main(args):
     if swag:
         predictions, true_labels = swag_predictions(model, dataset.val_loader, num_models=10, device=device)
     elif mcdropout:
-        predictions, true_labels = mcdropout_predictions(model, dataset.val_loader, num_models=10, device=device)
+        predictions, true_labels = mcdropout_predictions(model, dataset.val_loader, num_models=50, device=device)
     elif laplace:
         predictions, true_labels = laplace_predictions(model, dataset.val_loader, num_samples=10, device=device)
     elif vi:
-        predictions, true_labels = vi_predictions(model, dataset.val_loader, num_samples=30, device=device)
+        predictions, true_labels = vi_predictions(model, dataset.val_loader, num_samples=50, device=device)
     elif optim_only:
         predictions, true_labels = predict_step(model, dataset.val_loader, device=device)
   
@@ -120,7 +120,8 @@ def main(args):
                                                              true_labels=true_labels,
                                                              train_indices=dataset.train_indices,
                                                              val_indices=dataset.val_indices)
-    torch.save(model, (os.path.join(MODELS_DIR, f'{args.model}_{args.approach}.pt')))
+    if args.save_model == 1:
+        torch.save(model, (os.path.join(MODELS_DIR, f'{args.model}_{args.approach}.pt')))
 
     
 
@@ -130,5 +131,6 @@ if __name__ == '__main__':
     parser.add_argument('--model', type=str, default='resnet18')
     parser.add_argument('--approach', type=str, default='optim')
     parser.add_argument('--epochs', type=int, default=30)
+    parser.add_argument('--save_model', type=int, default=0)
     args = parser.parse_args()
     main(args)

@@ -43,10 +43,9 @@ class BaeFinalLinear(nn.Module):
         self.prior = Normal(0, 1)
 
     def forward(self, x):
-        # reparameterization trick
         sigma = torch.exp(self.log_sigma)
-        epsilon = torch.randn_like(self.mu)
-        weight = self.mu + sigma * epsilon
+        eps = torch.randn_like(self.mu)
+        weight = self.mu + sigma * eps
         
         return x @ weight.t()
 

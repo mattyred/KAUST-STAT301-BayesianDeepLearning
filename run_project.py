@@ -9,10 +9,8 @@ import torchvision.transforms as T
 import matplotlib.pyplot as plt
 from torchvision import models
 from torch import nn
-from src.nets.lenet import LeNet5
 from src.nets.resnet import ResNet18, BaeResNet18
 from torchvision.models import resnet18
-from src.nets.swag import SWAG
 from src.model_utils import train_step, validation_step, swag_predictions, mcdropout_predictions, predict_step, laplace_predictions, vi_train_step, vi_predictions
 
 DATA_DIR = './data/crack'

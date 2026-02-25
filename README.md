@@ -1,12 +1,16 @@
-# Bayesian Deep Learning - Course Project
+# Bayesian Deep Learning
 
-To reproduce the results:
+## Installation
 
-## Optimization
-`python3 run_project.py --model resnet18 --approach optim --epochs 30`
+1. Clone the repo
+git clone https://github.com/mattyred/KAUST-STAT301-BayesianDeepLearning.git
+cd KAUST-STAT301-BayesianDeepLearning
 
-## Monte Carlo dropout
-`python3 run_project.py --model resnet18 --approach mcdropout --epochs 30`
+2. Create the environment
+conda env create -f environment.yml
 
-## Variational Inference
-`python3 run_project.py --model resnet18 --approach vi --epochs 30`
+3. Activate it
+conda activate bdl-course
+
+## Launch Jupyter-Lab from IBEX
+

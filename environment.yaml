@@ -1,0 +1,18 @@
+name: bdl-env
+channels:
+  - pytorch
+  - pyro
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - matplotlib
+  - pytorch
+  - torchvision
+  - jupyter
+  - pip:
+      - pyro-ppl
+      - gpytorch
+      - tqdm

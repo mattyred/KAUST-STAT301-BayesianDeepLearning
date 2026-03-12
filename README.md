@@ -9,50 +9,10 @@ cd KAUST-STAT301-BayesianDeepLearning
 2. Create the environment
 conda env create -f environment.yaml
 
-3. Activate it
+3. Activate the environment
 conda activate bdl-course
 
 ## Launch Jupyter-Lab from IBEX
 
-1. Request the resources: `sbatch launch_jupyter_IBEX.sh`
+1. Launch command:
 
-2. Optional: check if the resources have been assigned: `squeue -u $username`
-
-3. Open the file `slurm_outputs/jupyter_kernel/j_kenrnel.err`
-
-```
-[I 2026-03-04 15:33:54.211 ServerApp] jupyter_lsp | extension was successfully linked.
-[I 2026-03-04 15:33:54.219 ServerApp] jupyter_server_terminals | extension was successfully linked.
-[I 2026-03-04 15:33:54.227 ServerApp] jupyterlab | extension was successfully linked.
-[I 2026-03-04 15:33:54.236 ServerApp] notebook | extension was successfully linked.
-[I 2026-03-04 15:33:54.745 ServerApp] notebook_shim | extension was successfully linked.
-[I 2026-03-04 15:33:54.782 ServerApp] notebook_shim | extension was successfully loaded.
-[I 2026-03-04 15:33:54.784 ServerApp] jupyter_lsp | extension was successfully loaded.
-[I 2026-03-04 15:33:54.788 ServerApp] jupyter_server_terminals | extension was successfully loaded.
-[I 2026-03-04 15:33:54.804 LabApp] JupyterLab extension loaded from /ibex/user/rossom/conda-environments/bdl-env/lib/python3.10/site-packages/jupyterlab
-[I 2026-03-04 15:33:54.804 LabApp] JupyterLab application directory is /ibex/user/rossom/conda-environments/bdl-env/share/jupyter/lab
-[I 2026-03-04 15:33:54.805 LabApp] Extension Manager is 'pypi'.
-[I 2026-03-04 15:33:54.888 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2026-03-04 15:33:54.897 ServerApp] notebook | extension was successfully loaded.
-[I 2026-03-04 15:33:54.899 ServerApp] Serving notebooks from local directory: /ibex/user/rossom/KAUST-STAT301-BayesianDeepLearning
-[I 2026-03-04 15:33:54.899 ServerApp] Jupyter Server 2.17.0 is running at:
-[I 2026-03-04 15:33:54.899 ServerApp] http://dgpu501-22:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-[I 2026-03-04 15:33:54.899 ServerApp]     http://127.0.0.1:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-[I 2026-03-04 15:33:54.899 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2026-03-04 15:33:54.910 ServerApp] 
-    
-    To access the server, open this file in a browser:
-        file:///home/rossom/.local/share/jupyter/runtime/jpserver-3805574-open.html
-    Or copy and paste one of these URLs:
-        http://dgpu501-22:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-        http://127.0.0.1:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-[I 2026-03-04 15:33:55.081 ServerApp] Skipped non-installed server(s): basedpyright, bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyrefly, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
-[I 2026-03-04 15:44:38.683 ServerApp] 302 GET / (@10.109.65.13) 0.52ms
-[I 2026-03-04 15:44:38.705 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.58ms
-[I 2026-03-04 15:44:40.142 ServerApp] 302 GET / (@10.109.65.13) 0.37ms
-[I 2026-03-04 15:44:40.151 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.43ms
-[I 2026-03-04 15:46:45.350 ServerApp] Malformed HTTP message from 10.85.39.69: Malformed HTTP request line
-```
-4.1. For VSCode users: open a jupyter notebook and copy-paste `http://dgpu501-22:10000/tree token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f`
-
-5.1. To work with the browser: copy-paste `http://127.0.0.1.ibex.kaust.edu.sa:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f`

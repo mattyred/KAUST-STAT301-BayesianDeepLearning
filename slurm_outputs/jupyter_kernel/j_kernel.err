@@ -1,55 +1,47 @@
-[I 2026-03-04 15:33:54.211 ServerApp] jupyter_lsp | extension was successfully linked.
-[I 2026-03-04 15:33:54.219 ServerApp] jupyter_server_terminals | extension was successfully linked.
-[I 2026-03-04 15:33:54.227 ServerApp] jupyterlab | extension was successfully linked.
-[I 2026-03-04 15:33:54.236 ServerApp] notebook | extension was successfully linked.
-[I 2026-03-04 15:33:54.745 ServerApp] notebook_shim | extension was successfully linked.
-[I 2026-03-04 15:33:54.782 ServerApp] notebook_shim | extension was successfully loaded.
-[I 2026-03-04 15:33:54.784 ServerApp] jupyter_lsp | extension was successfully loaded.
-[I 2026-03-04 15:33:54.788 ServerApp] jupyter_server_terminals | extension was successfully loaded.
-[I 2026-03-04 15:33:54.804 LabApp] JupyterLab extension loaded from /ibex/user/rossom/conda-environments/bdl-env/lib/python3.10/site-packages/jupyterlab
-[I 2026-03-04 15:33:54.804 LabApp] JupyterLab application directory is /ibex/user/rossom/conda-environments/bdl-env/share/jupyter/lab
-[I 2026-03-04 15:33:54.805 LabApp] Extension Manager is 'pypi'.
-[I 2026-03-04 15:33:54.888 ServerApp] jupyterlab | extension was successfully loaded.
-[I 2026-03-04 15:33:54.897 ServerApp] notebook | extension was successfully loaded.
-[I 2026-03-04 15:33:54.899 ServerApp] Serving notebooks from local directory: /ibex/user/rossom/KAUST-STAT301-BayesianDeepLearning
-[I 2026-03-04 15:33:54.899 ServerApp] Jupyter Server 2.17.0 is running at:
-[I 2026-03-04 15:33:54.899 ServerApp] http://dgpu501-22:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-[I 2026-03-04 15:33:54.899 ServerApp]     http://127.0.0.1:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-[I 2026-03-04 15:33:54.899 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-[C 2026-03-04 15:33:54.910 ServerApp] 
+[I 2026-03-11 14:45:07.499 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2026-03-11 14:45:07.511 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2026-03-11 14:45:07.521 ServerApp] jupyterlab | extension was successfully linked.
+[I 2026-03-11 14:45:07.537 ServerApp] notebook | extension was successfully linked.
+[I 2026-03-11 14:45:08.031 ServerApp] notebook_shim | extension was successfully linked.
+[I 2026-03-11 14:45:08.062 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2026-03-11 14:45:08.064 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2026-03-11 14:45:08.066 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2026-03-11 14:45:08.076 LabApp] JupyterLab extension loaded from /ibex/user/rossom/conda-environments/bdl-env/lib/python3.10/site-packages/jupyterlab
+[I 2026-03-11 14:45:08.076 LabApp] JupyterLab application directory is /ibex/user/rossom/conda-environments/bdl-env/share/jupyter/lab
+[I 2026-03-11 14:45:08.077 LabApp] Extension Manager is 'pypi'.
+[I 2026-03-11 14:45:08.152 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2026-03-11 14:45:08.158 ServerApp] notebook | extension was successfully loaded.
+[I 2026-03-11 14:45:08.159 ServerApp] Serving notebooks from local directory: /ibex/user/rossom/KAUST-STAT301-BayesianDeepLearning
+[I 2026-03-11 14:45:08.159 ServerApp] Jupyter Server 2.17.0 is running at:
+[I 2026-03-11 14:45:08.159 ServerApp] http://gpu502-11:10000/tree?token=7f95775781037ed59c779e82f612096c8afea733e91a3263
+[I 2026-03-11 14:45:08.159 ServerApp]     http://127.0.0.1:10000/tree?token=7f95775781037ed59c779e82f612096c8afea733e91a3263
+[I 2026-03-11 14:45:08.159 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2026-03-11 14:45:08.165 ServerApp] 
     
     To access the server, open this file in a browser:
-        file:///home/rossom/.local/share/jupyter/runtime/jpserver-3805574-open.html
+        file:///home/rossom/.local/share/jupyter/runtime/jpserver-2547247-open.html
     Or copy and paste one of these URLs:
-        http://dgpu501-22:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-        http://127.0.0.1:10000/tree?token=003c3b0f1590070ae4c95c0d9a82e50954e58f3ea2954d9f
-[I 2026-03-04 15:33:55.081 ServerApp] Skipped non-installed server(s): basedpyright, bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyrefly, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
-[I 2026-03-04 15:44:38.683 ServerApp] 302 GET / (@10.109.65.13) 0.52ms
-[I 2026-03-04 15:44:38.705 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.58ms
-[I 2026-03-04 15:44:40.142 ServerApp] 302 GET / (@10.109.65.13) 0.37ms
-[I 2026-03-04 15:44:40.151 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.43ms
-[I 2026-03-04 15:46:45.350 ServerApp] Malformed HTTP message from 10.85.39.69: Malformed HTTP request line
-[I 2026-03-04 15:48:29.909 ServerApp] 302 GET / (@10.109.65.13) 0.44ms
-[I 2026-03-04 15:48:29.927 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.49ms
-[I 2026-03-04 15:48:30.094 ServerApp] Kernel started: b6669019-19cf-48ed-980e-482835d6b857
-[I 2026-03-04 15:48:30.949 ServerApp] Adapting from protocol version 5.3 (kernel b6669019-19cf-48ed-980e-482835d6b857) to 5.4 (client).
-[I 2026-03-04 15:48:30.950 ServerApp] Connecting to kernel b6669019-19cf-48ed-980e-482835d6b857.
-[W 2026-03-04 15:48:30.951 ServerApp] The websocket_ping_timeout (90000) cannot be longer than the websocket_ping_interval (30000).
+        http://gpu502-11:10000/tree?token=7f95775781037ed59c779e82f612096c8afea733e91a3263
+        http://127.0.0.1:10000/tree?token=7f95775781037ed59c779e82f612096c8afea733e91a3263
+[I 2026-03-11 14:45:08.243 ServerApp] Skipped non-installed server(s): basedpyright, bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyrefly, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[I 2026-03-11 14:45:46.735 ServerApp] 302 GET / (@10.109.65.13) 0.43ms
+[I 2026-03-11 14:45:46.746 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.49ms
+[I 2026-03-11 14:45:48.012 ServerApp] 302 GET / (@10.109.65.13) 0.42ms
+[I 2026-03-11 14:45:48.025 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.42ms
+[I 2026-03-11 14:45:52.998 ServerApp] 302 GET / (@10.109.65.13) 0.39ms
+[I 2026-03-11 14:45:53.015 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.41ms
+[I 2026-03-11 14:45:53.146 ServerApp] Kernel started: 8b900cb2-5e9d-41d6-af80-a93ef1ae349a
+[I 2026-03-11 14:45:53.857 ServerApp] Adapting from protocol version 5.3 (kernel 8b900cb2-5e9d-41d6-af80-a93ef1ae349a) to 5.4 (client).
+[I 2026-03-11 14:45:53.859 ServerApp] Connecting to kernel 8b900cb2-5e9d-41d6-af80-a93ef1ae349a.
+[W 2026-03-11 14:45:53.860 ServerApp] The websocket_ping_timeout (90000) cannot be longer than the websocket_ping_interval (30000).
     Setting websocket_ping_timeout=30000
-[I 2026-03-04 15:48:34.685 ServerApp] Adapting from protocol version 5.3 (kernel b6669019-19cf-48ed-980e-482835d6b857) to 5.4 (client).
-[I 2026-03-04 15:48:34.685 ServerApp] Connecting to kernel b6669019-19cf-48ed-980e-482835d6b857.
-[W 2026-03-04 16:29:00.951 ServerApp] WebSocket ping timeout after 119999 ms.
-[I 2026-03-04 16:29:05.953 ServerApp] Starting buffering for b6669019-19cf-48ed-980e-482835d6b857:bc2aa31b-b101-47c5-9a04-b54fbd69d76e
-[I 2026-03-04 16:35:31.202 ServerApp] 302 GET / (@10.109.65.170) 0.46ms
-[I 2026-03-04 16:35:31.772 JupyterNotebookApp] 302 GET /tree? (@10.109.65.170) 0.48ms
-[I 2026-03-04 16:35:33.543 ServerApp] 302 GET / (@10.109.65.170) 0.44ms
-[I 2026-03-04 16:35:33.675 JupyterNotebookApp] 302 GET /tree? (@10.109.65.170) 0.43ms
-[I 2026-03-04 16:35:34.234 ServerApp] Adapting from protocol version 5.3 (kernel b6669019-19cf-48ed-980e-482835d6b857) to 5.4 (client).
-[I 2026-03-04 16:35:34.235 ServerApp] Connecting to kernel b6669019-19cf-48ed-980e-482835d6b857.
-[W 2026-03-04 16:35:36.016 ServerApp] 404 GET /nbextensions/jupyter-js-widgets/extension.js (@10.109.65.170) 7.61ms referer=None
-[I 2026-03-04 16:35:36.017 ServerApp] 302 GET / (@10.109.65.170) 7.67ms
-[I 2026-03-04 16:35:36.119 JupyterNotebookApp] 302 GET /tree? (@10.109.65.170) 0.39ms
-[W 2026-03-04 16:35:36.340 ServerApp] 404 GET /nbextensions/jupyter-js-widgets/extension.js (@10.109.65.170) 0.85ms referer=None
-[I 2026-03-04 17:49:53.503 ServerApp] Adapting from protocol version 5.3 (kernel b6669019-19cf-48ed-980e-482835d6b857) to 5.4 (client).
-[I 2026-03-04 17:49:53.504 ServerApp] Connecting to kernel b6669019-19cf-48ed-980e-482835d6b857.
-slurmstepd: error: *** JOB 45796442 ON dgpu501-22 CANCELLED AT 2026-03-04T19:34:04 DUE TO TIME LIMIT ***
+[W 2026-03-11 14:45:59.215 ServerApp] 404 GET /nbextensions/jupyter-js-widgets/extension.js (@10.109.65.13) 9.00ms referer=None
+[I 2026-03-11 14:45:59.215 ServerApp] 302 GET / (@10.109.65.13) 9.22ms
+[I 2026-03-11 14:45:59.227 JupyterNotebookApp] 302 GET /tree? (@10.109.65.13) 0.40ms
+[W 2026-03-11 14:45:59.249 ServerApp] 404 GET /nbextensions/jupyter-js-widgets/extension.js (@10.109.65.13) 0.73ms referer=None
+[I 2026-03-11 16:01:33.982 ServerApp] Kernel restarted: 8b900cb2-5e9d-41d6-af80-a93ef1ae349a
+[I 2026-03-11 16:01:33.989 ServerApp] Starting buffering for 8b900cb2-5e9d-41d6-af80-a93ef1ae349a:bae0a61d-7653-406e-9c5f-0b522d378002
+[I 2026-03-11 16:01:34.008 ServerApp] Adapting from protocol version 5.3 (kernel 8b900cb2-5e9d-41d6-af80-a93ef1ae349a) to 5.4 (client).
+[I 2026-03-11 16:01:34.008 ServerApp] Connecting to kernel 8b900cb2-5e9d-41d6-af80-a93ef1ae349a.
+[I 2026-03-11 16:01:34.008 ServerApp] Restoring connection for 8b900cb2-5e9d-41d6-af80-a93ef1ae349a:bae0a61d-7653-406e-9c5f-0b522d378002
+slurmstepd: error: *** JOB 45945977 ON gpu502-11 CANCELLED AT 2026-03-11T18:45:32 DUE TO TIME LIMIT ***
